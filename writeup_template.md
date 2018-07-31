@@ -23,7 +23,7 @@ The goals / steps of this project are the following:
 [image2]: ./undistort_image.png "Road Transformed"
 [image3]: ./binary_combo_example.png "Binary Example"
 [image4]: ./warped_straight_lines.png "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
+[image5]: ./color_fit_lines.png "Fit Visual"
 [image6]: ./example_output.jpg "Output"
 [video1]: ./output_images/project_video.mp4 "Video"
 
@@ -73,25 +73,38 @@ This resulted in the following source and destination points:
 | 578, 460      | 200, 0        |
 | 704, 460      | 1000, 0       |
 
-dst = np.float32([[], [], [], []])
-
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
 ![alt text][image4]
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
-
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+I derived the polynomial using the following steps: 
+ 
+1- divide images into right and left sides
+2- create boxe at each side of the image and for a certain portion
+3- take the histogram for each side of the portion and locate the box at the highest value
+4- take the derived center(points) of the boxes and create a polynomial for each box
+5- take all the points and create clean polynomial that fit the line.
 
 ![alt text][image5]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+I calculated the curvature as following:
+1- define conversions in x and y from pixels space to meters
+2- fit the points into a polynomial with converting it to meters by multiplying with predefined conversions.
+3- we choose the maximum y-value, corresponding to the bottom of the image
+4- we calculate the R_curve (radius of curvature)
+
+I calculate the distance from the center as following:
+1- define conversions in x and y from pixels space to meters
+2- solved the polynomial created in curvature step with max y-value
+3- assume the center of the image as the expected center of the car
+4- calculate the center of the road and subtracte it with the center of the car
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+I implemented this step in the second code cell of the IPython notebook located in "main.ipynb" in the function `measure_curvature_real()`.  Here is an example of my result on a test image:
 
 ![alt text][image6]
 
