@@ -24,7 +24,7 @@ The goals / steps of this project are the following:
 [image3]: ./binary_combo_example.png "Binary Example"
 [image4]: ./warped_straight_lines.png "Warp Example"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
+[image6]: ./example_output.jpg "Output"
 [video1]: ./output_images/project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -54,7 +54,7 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines 13 through 20 in `main.ipynb`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
 
 ![alt text][image3]
 
@@ -117,5 +117,11 @@ Here's a [link to my video result](./project_video.mp4)
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The problem was mainly in :
+	1- tuning the threshhold for each filters.
+	2- find the best area to wrap to get a perfect lines.
+	3- calculating the curvature.
+we can improve :
+	1- increase the variety and combination of gradients and color filters
+	2- wrap the image with better calculated areas for a better results in curvature angle.
+	3- better organization of the pipline.
